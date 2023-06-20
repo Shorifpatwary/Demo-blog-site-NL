@@ -12,13 +12,13 @@ return new class () extends Migration {
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name', 25)->nullable(false);
-            $table->string('last_name', 25)->nullable();
-            $table->string('address', 100)->nullable();
-            $table->foreignId('department_id')->constrained('departments')->cascadeOnDelete();
-            $table->foreignId('city_id')->constrained('cities')->cascadeOnDelete();
-            $table->foreignId('state_id')->constrained('states')->cascadeOnDelete();
+            $table->string('first_name', 100)->nullable(false);
+            $table->string('last_name', 100)->nullable();
+            $table->string('address', 200)->nullable();
             $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
+            $table->foreignId('state_id')->constrained('states')->cascadeOnDelete();
+            $table->foreignId('city_id')->constrained('cities')->cascadeOnDelete();
+            $table->foreignId('department_id')->constrained('departments')->cascadeOnDelete();
             $table->char('zip_code')->nullable();
             $table->date('birth_date')->nullable();
             $table->date('date_hired')->nullable();

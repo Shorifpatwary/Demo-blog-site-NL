@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Country;
 use App\Models\State;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/something', function () {
-    return State::with('country')->get();
+    // return State::with('country')->get();
+    return dd(array_values(Country::pluck('country_id')->toArray()));
 });
 
 Route::get('/', function () {
