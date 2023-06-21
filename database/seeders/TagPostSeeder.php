@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\State;
+use App\Models\TagPost;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class StateSeeder extends Seeder
+class TagPostSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        State::factory()->count(50)->create();
+        TagPost::factory()->count(50)->create();
     }
 }

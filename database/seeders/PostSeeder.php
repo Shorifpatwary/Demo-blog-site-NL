@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\State;
+use App\Models\Post;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class StateSeeder extends Seeder
+class PostSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        State::factory()->count(50)->create();
+        Post::factory()->count(50)->create();
     }
 }

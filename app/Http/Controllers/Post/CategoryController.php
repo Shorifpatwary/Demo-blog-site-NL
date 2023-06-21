@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Post;
 
 use App\Http\Controllers\Controller;
-use App\Models\City;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CityController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class CityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(City $city)
+    public function show(Category $category)
     {
         //
     }
@@ -43,7 +43,7 @@ class CityController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(City $city)
+    public function edit(Category $category)
     {
         //
     }
@@ -51,7 +51,7 @@ class CityController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, City $city)
+    public function update(Request $request, Category $category)
     {
         //
     }
@@ -59,7 +59,7 @@ class CityController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(City $city)
+    public function destroy(Category $category)
     {
         //
     }
