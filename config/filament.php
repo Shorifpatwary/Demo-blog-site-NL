@@ -142,8 +142,8 @@ return [
         'register' => [
             Widgets\AccountWidget::class,
             Widgets\FilamentInfoWidget::class,
-            // StatsOverview::class,
-            // App\StatsOverview::class,
+                // StatsOverview::class,
+                // App\StatsOverview::class,
             \App\Filament\Resources\StateResource\Widgets\StatsOverview::class,
         ],
     ],
@@ -241,7 +241,7 @@ return [
             'have_inline_labels' => false,
         ],
         'footer' => [
-            'should_show_logo' => true,
+            'should_show_logo' => false,
         ],
         'max_content_width' => 'full',
         'notifications' => [

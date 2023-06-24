@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Models\Country;
 use App\Models\State;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/something', function () {
+Route::get('/testing', function () {
     // return State::with('country')->get();
-    return dd(array_values(Country::pluck('country_id')->toArray()));
+    return Auth::id();
 });
 
 Route::get('/', function () {
@@ -31,5 +32,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
-require __DIR__.'/api.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/api.php';

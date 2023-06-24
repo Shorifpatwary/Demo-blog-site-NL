@@ -91,7 +91,7 @@ class EmployeeResource extends Resource
   {
     return $table
       ->columns([
-        TextColumn::make('SL No')->getStateUsing(
+        TextColumn::make('Index No')->getStateUsing(
           static function (stdClass $rowLoop, HasTable $livewire): string {
             return (string) ($rowLoop->iteration +
               ($livewire->tableRecordsPerPage * ($livewire->page - 1

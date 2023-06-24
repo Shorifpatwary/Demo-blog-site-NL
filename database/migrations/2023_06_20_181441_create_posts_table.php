@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
 	/**
 	 * Run the migrations.
 	 */
@@ -15,14 +14,15 @@ return new class extends Migration
 			$table->id();
 			$table->string('title', 150);
 			$table->string('slug', 150)->unique();
-			$table->text('content');
-			$table->string('status');
-			$table->date('published_at');
-			$table->integer('views');
+			$table->text('content')->nullable();
+			$table->string('status')->default('published');
+			$table->date('published_at')->nullable();
+			$table->integer('views')->nullable()->default(1);
 			$table->boolean('comments_enabled')->default(1);
-			$table->string('meta_title');
-			$table->text('meta_description');
-			$table->string('excerpt');
+			$table->string('meta_title')->nullable();
+			$table->text('meta_description')->nullable();
+			$table->string('excerpt')->nullable();
+			$table->string('image', 200)->nullable()->unique();
 
 			$table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
 
