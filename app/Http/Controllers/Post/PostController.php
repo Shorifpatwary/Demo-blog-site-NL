@@ -3,64 +3,92 @@
 namespace App\Http\Controllers\Post;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+	/**
+	 * Display a listing of the resource.
+	 */
+	public function index(Request $request)
+	{
+		// $category = $request->query('category');
+		$limit = $request->query('limit');
+		$offset = $request->query('offset');
+		$orderBy = $request->query('orderBy');
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+		$query = Post::query()->with('user')->with('category')->with('tag')->with('comment');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+		// Apply additional conditions based on the query parameters
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Post $post)
-    {
-        //
-    }
+		// if ($category) {
+		// 	$query->whereRelation('category', 'name', $category);
+		// }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Post $post)
-    {
-        //
-    }
+		if ($limit) {
+			$query->limit($limit);
+		}
+		if ($offset) {
+			$query->offset($offset);
+		}
+		if ($orderBy) {
+			$query->orderBy($orderBy);
+		}
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Post $post)
-    {
-        //
-    }
+		// Retrieve the posts
+		$posts = $query->paginate(20);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Post $post)
-    {
-        //
-    }
+		return PostResource::collection($posts);
+	}
+
+	/**
+	 * Show the form for creating a new resource.
+	 */
+	public function create()
+	{
+		//
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 */
+	public function store(Request $request)
+	{
+		//
+	}
+
+	/**
+	 * Display the specified resource.
+	 */
+	public function show(Post $post)
+	{
+		$post->load('user', 'category', 'tag', 'comment');
+		return new PostResource($post);
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 */
+	public function edit(Post $post)
+	{
+		return "This is edit method";
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 */
+	public function update(Request $request, Post $post)
+	{
+		//
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 */
+	public function destroy(Post $post)
+	{
+		//
+	}
 }

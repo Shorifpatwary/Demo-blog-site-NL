@@ -17,6 +17,7 @@ return new class extends Migration {
 			$table->string('slug', 100)->unique();
 			$table->string('image', 200)->nullable()->unique();
 
+			$table->foreignId('post_id')->constrained('posts')->cascadeOnDelete();
 			$table->timestamps();
 		});
 	}

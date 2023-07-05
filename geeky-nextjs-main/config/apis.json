@@ -1,0 +1,5 @@
+{
+  "posts": "http://127.0.0.1:8000/api/posts",
+  "categories": "http://127.0.0.1:8000/api/categories",
+  "tags": "http://127.0.0.1:8000/api/tags"
+}

@@ -3,64 +3,84 @@
 namespace App\Http\Controllers\Post;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TagResource;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+	/**
+	 * Display a listing of the resource.
+	 */
+	public function index(Request $request)
+	{
+		$limit = $request->query('limit');
+		$offset = $request->query('offset');
+		$orderBy = $request->query('orderBy');
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+		$query = Tag::query()->with('post');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+		if ($limit) {
+			$query->limit($limit);
+		}
+		if ($offset) {
+			$query->offset($offset);
+		}
+		if ($orderBy) {
+			$query->orderBy($orderBy);
+		}
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Tag $tag)
-    {
-        //
-    }
+		// Retrieve the posts
+		$posts = $query->paginate(20);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tag $tag)
-    {
-        //
-    }
+		return TagResource::collection($posts);
+	}
+	/**
+	 * Show the form for creating a new resource.
+	 */
+	public function create()
+	{
+		//
+	}
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Tag $tag)
-    {
-        //
-    }
+	/**
+	 * Store a newly created resource in storage.
+	 */
+	public function store(Request $request)
+	{
+		//
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Tag $tag)
-    {
-        //
-    }
+	/**
+	 * Display the specified resource.
+	 */
+	public function show(Tag $tag)
+	{
+		$tag->load('post');
+		return new TagResource($tag);
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 */
+	public function edit(Tag $tag)
+	{
+		//
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 */
+	public function update(Request $request, Tag $tag)
+	{
+		//
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 */
+	public function destroy(Tag $tag)
+	{
+		//
+	}
 }
