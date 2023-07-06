@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -14,33 +16,49 @@ class PostController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		// $category = $request->query('category');
-		$limit = $request->query('limit');
-		$offset = $request->query('offset');
-		$orderBy = $request->query('orderBy');
+		try {
+			// $category = $request->query('category');
+			$limit = $request->query('limit');
+			$offset = $request->query('offset');
+			$orderBy = $request->query('orderBy');
 
-		$query = Post::query()->with('user')->with('category')->with('tag')->with('comment');
+			$query = Post::query()->with('user')->with('category')->with('tag')->with('comment');
 
-		// Apply additional conditions based on the query parameters
+			// Apply additional conditions based on the query parameters
 
-		// if ($category) {
-		// 	$query->whereRelation('category', 'name', $category);
-		// }
+			// if ($category) {
+			// 	$query->whereRelation('category', 'name', $category);
+			// }
 
-		if ($limit) {
-			$query->limit($limit);
+			if ($limit) {
+				$query->limit($limit);
+			}
+			if ($offset) {
+				$query->offset($offset);
+			}
+			if ($orderBy) {
+				$query->orderBy($orderBy);
+			}
+
+			// Retrieve the posts
+			$posts = $query->paginate(20);
+
+			// Log something
+			Log::info("posts api index ::success");
+
+			// return respose 
+			return PostResource::collection($posts);
+
+		} catch (\Exception $e) {
+			$errorMessage = 'Failed to fetch the data.';
+			$statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+
+			// Log the error if needed
+			Log::info('posts api index :: error');
+			Log::error($e);
+
+			return response()->json(['error' => $errorMessage], $statusCode);
 		}
-		if ($offset) {
-			$query->offset($offset);
-		}
-		if ($orderBy) {
-			$query->orderBy($orderBy);
-		}
-
-		// Retrieve the posts
-		$posts = $query->paginate(20);
-
-		return PostResource::collection($posts);
 	}
 
 	/**

@@ -13,8 +13,8 @@ import { sortByDate } from "@lib/utils/sortFunctions";
 // import { markdownify } from "@lib/utils/textConverter";
 import Link from "next/link";
 import { FaRegCalendar } from "react-icons/fa";
+import { useState } from "react";
 const { blog_folder, pagination } = config.settings;
-
 const Home = ({
   // banner,
   posts,
@@ -28,12 +28,15 @@ const Home = ({
   // const featuredPosts = sortPostByDate.filter(
   // (post) => post.frontmatter.featured
   // );
+  const [apiresponse, setApiresponse] = useState("response");
   const showPosts = pagination;
   if (posts) {
     console.log("this is a posts ", posts);
-    console.log("this is a api json file " , apis.posts);
+    console.log("this is a api json file ", apis.posts);
+    console.log(apiresponse);
   } else {
     console.log("nothing return ");
+    console.log(apiresponse);
   }
   return (
     // <Base>
@@ -196,12 +199,17 @@ export default Home;
 
 // for homepage sever side data
 export const getServerSideProps = async () => {
-  const response = (await fetch("http://127.0.0.1:8000/api/posts")); 
-  const posts = await response.json();
+  const response = await fetch("http://127.0.0.1:8000/api/posts");
+  if (response.ok) {
+    const posts = await response.json();
+    setApiresponse("success response");
+  } else {
+    setApiresponse("error response");
+  }
   return {
     props: {
       // banner,
-      posts
+      posts,
       // featured_posts,
       // recent_posts,
       // promotion,
