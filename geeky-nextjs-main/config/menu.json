@@ -1,7 +1,7 @@
 {
   "main": [
     {
-      "name": "Home",
+      "name": "home",
       "url": "/"
     },
     {
@@ -9,8 +9,12 @@
       "url": "/about"
     },
     {
-      "name": "Elements",
-      "url": "/elements"
+      "name": "Categories",
+      "url": "/categories"
+    },
+    {
+      "name": "Tags",
+      "url": "/tags"
     },
     {
       "name": "Contact",
@@ -22,8 +26,16 @@
       "hasChildren": true,
       "children": [
         {
-          "name": "Categories",
-          "url": "/categories"
+          "name": "page 1",
+          "url": "#"
+        },
+        {
+          "name": "page 2",
+          "url": "#"
+        },
+        {
+          "name": "page 3",
+          "url": "#"
         }
       ]
     }

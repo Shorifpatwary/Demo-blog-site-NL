@@ -5,8 +5,7 @@ import { FaEnvelope, FaMapMarkerAlt, FaUserAlt } from "react-icons/fa";
 import ImageFallback from "./components/ImageFallback";
 
 const Contact = ({ data }) => {
-  const { frontmatter } = data;
-  const { title, form_action, phone, mail, location } = frontmatter;
+  const { title, form_action, phone, mail, location } = data;
 
   return (
     <section className="section lg:mt-16">
@@ -26,7 +25,7 @@ const Contact = ({ data }) => {
               "h1 my-10 lg:my-11 lg:pt-11 text-center lg:text-left lg:text-[64px]"
             )}
           </div>
-          <div className="contact-form-wrapper rounded border border-border p-6 dark:border-darkmode-border lg:col-6">
+          <div className="contact-form-wrapper rounded border border-border p-6 lg:col-6 dark:border-darkmode-border">
             <h2>
               Send Us A
               <span className="ml-1.5 inline-flex items-center text-primary">
