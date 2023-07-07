@@ -24,14 +24,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Post api 
 Route::resource('posts', PostController::class)->except(['index']);
 
-Route::get('posts/{limit?}/{offset?}', [PostController::class, 'index']);
+Route::get('posts/{orderBy?}', [PostController::class, 'index']);
 
 // Categories api 
 Route::resource('categories', CategoryController::class)->except(['index']);
 
-Route::get('categories/{limit?}/{offset?}', [CategoryController::class, 'index']);
+Route::get('categories/{orderBy?}', [CategoryController::class, 'index']);
 
 // Tags api 
 Route::resource('tags', TagController::class)->except(['index']);
 
-Route::get('tags/{limit?}/{offset?}', [TagController::class, 'index']);
+Route::get('tags/{orderBy?}', [TagController::class, 'index']);

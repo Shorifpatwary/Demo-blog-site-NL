@@ -17,11 +17,8 @@ class PostController extends Controller
 	public function index(Request $request)
 	{
 		try {
-			// $category = $request->query('category');
-			$limit = $request->query('limit');
-			$offset = $request->query('offset');
-			$orderBy = $request->query('orderBy');
 
+			$orderBy = $request->query('orderBy');
 			$query = Post::query()->with('user')->with('category')->with('tag')->with('comment');
 
 			// Apply additional conditions based on the query parameters
@@ -30,12 +27,6 @@ class PostController extends Controller
 			// 	$query->whereRelation('category', 'name', $category);
 			// }
 
-			if ($limit) {
-				$query->limit($limit);
-			}
-			if ($offset) {
-				$query->offset($offset);
-			}
 			if ($orderBy) {
 				$query->orderBy($orderBy);
 			}
@@ -50,14 +41,13 @@ class PostController extends Controller
 			return PostResource::collection($posts);
 
 		} catch (\Exception $e) {
-			$errorMessage = 'Failed to fetch the data.';
 			$statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
 
 			// Log the error if needed
 			Log::info('posts api index :: error');
 			Log::error($e);
 
-			return response()->json(['error' => $errorMessage], $statusCode);
+			return response()->json(['error' => $e], $statusCode);
 		}
 	}
 

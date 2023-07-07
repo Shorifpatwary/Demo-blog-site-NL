@@ -6,6 +6,7 @@ import CustomForm from "@layouts/components/NewsLetterForm";
 import Social from "@layouts/components/Social";
 import dateFormat from "@lib/utils/dateFormat";
 import { sortByDate } from "@lib/utils/sortFunctions";
+import cutStringToWords from "@lib/cutStringToWords";
 import { markdownify } from "@lib/utils/textConverter";
 import Link from "next/link";
 import { useState } from "react";
@@ -14,16 +15,10 @@ import MailchimpSubscribe from "react-mailchimp-subscribe";
 const { blog_folder } = config.settings;
 const { about, featured_posts, newsletter } = config.widgets;
 
-const Sidebar = ({ posts, categories, className }) => {
-  const sortPostByDate = sortByDate(posts);
-  const featuredPosts = sortPostByDate.filter(
-    (post) => post.frontmatter.featured
-  );
-
+const Sidebar = ({ recentPosts, featuredPosts, categories, className }) => {
   const [showRecent, setShowRecent] = useState(true);
-
   return (
-    <aside className={`${className} px-0 lg:px-6 lg:col-4`}>
+    <aside className={`${className} px-0 lg:col-4 lg:px-6`}>
       {about.enable && (
         <div className="relative rounded border border-border p-6 text-center dark:border-darkmode-border">
           <ImageFallback
@@ -75,7 +70,7 @@ const Sidebar = ({ posts, categories, className }) => {
                 </svg>
                 <Link className="py-2" href={`/categories/${category.name}`}>
                   {category.name.replace("-", " ")}
-                  <span className="absolute top-1/2 right-0 -translate-y-1/2 text-[10px] text-gray-500">
+                  <span className="absolute right-0 top-1/2 -translate-y-1/2 text-[10px] text-gray-500">
                     {category.posts}
                   </span>
                 </Link>
@@ -108,7 +103,7 @@ const Sidebar = ({ posts, categories, className }) => {
             </button>
           </div>
           {showRecent
-            ? sortPostByDate
+            ? recentPosts
                 .slice(0, featured_posts.showPost)
                 .map((post, i, arr) => (
                   <div
@@ -116,13 +111,13 @@ const Sidebar = ({ posts, categories, className }) => {
                       i !== arr.length - 1 &&
                       "mb-6 border-b border-border pb-6 dark:border-darkmode-border"
                     }`}
-                    key={`key-${i}`}
+                    key={post.id}
                   >
-                    {post.frontmatter.image && (
+                    {post.image && (
                       <ImageFallback
                         className="mr-3 h-[85px] w-[85px] rounded-full object-cover"
-                        src={post.frontmatter.image}
-                        alt={post.frontmatter.title}
+                        src={post.image}
+                        alt={post.title}
                         width={105}
                         height={85}
                       />
@@ -130,15 +125,16 @@ const Sidebar = ({ posts, categories, className }) => {
                     <div>
                       <h3 className="h5 mb-2">
                         <Link
-                          href={`/${blog_folder}/${post.slug}`}
+                          href={post.slug}
                           className="block hover:text-primary"
                         >
-                          {post.frontmatter.title}
+                          {cutStringToWords(post.title, 6)}
                         </Link>
                       </h3>
                       <p className="inline-flex items-center font-secondary text-xs">
                         <FaRegCalendar className="mr-1.5" />
-                        {dateFormat(post.frontmatter.date)}
+                        {/* {dateFormat(post.date)} */}
+                        {post.published_at}
                       </p>
                     </div>
                   </div>
@@ -151,13 +147,13 @@ const Sidebar = ({ posts, categories, className }) => {
                       i !== arr.length - 1 &&
                       "mb-6 border-b dark:border-b-darkmode-border"
                     }`}
-                    key={`key-${i}`}
+                    key={post.id}
                   >
-                    {post.frontmatter.image && (
+                    {post.image && (
                       <ImageFallback
                         className="mr-3 h-[85px] w-[85px] rounded-full object-cover"
-                        src={post.frontmatter.image}
-                        alt={post.frontmatter.title}
+                        src={post.image}
+                        alt={post.title}
                         width={105}
                         height={85}
                       />
@@ -165,15 +161,16 @@ const Sidebar = ({ posts, categories, className }) => {
                     <div>
                       <h3 className="h5 mb-2">
                         <Link
-                          href={`/${blog_folder}/${post.slug}`}
+                          href={post.slug}
                           className="block hover:text-primary"
                         >
-                          {post.frontmatter.title}
+                          {cutStringToWords(post.title, 6)}
                         </Link>
                       </h3>
                       <p className="inline-flex items-center font-secondary text-xs">
                         <FaRegCalendar className="mr-1.5" />
-                        {dateFormat(post.frontmatter.date)}
+                        {/* {dateFormat(post.date)} */}
+                        {post.published_at}
                       </p>
                     </div>
                   </div>
@@ -186,15 +183,15 @@ const Sidebar = ({ posts, categories, className }) => {
         <div className="mt-6  rounded border border-border p-6 text-center dark:border-darkmode-border">
           <h4 className="section-title">{newsletter.title}</h4>
           <p className="mt-10 text-xs">{newsletter.content}</p>
-          <MailchimpSubscribe
+          {/* <MailchimpSubscribe
             url={newsletter.malichip_url}
             render={({ subscribe, status, message }) => (
-              <CustomForm
-                onValidated={(formData) => subscribe(formData)}
-                status={status}
-                message={message}
-              />
-            )}
+              )}
+          /> */}
+          <CustomForm
+            // onValidated={(formData) => subscribe(formData)}
+            // status={status}
+            // message={message}
           />
           <p className="text-xs">
             By Singing Up, You Agree To

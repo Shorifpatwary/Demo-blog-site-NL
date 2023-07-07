@@ -10,7 +10,7 @@ function CustomForm({ status, message, onValidated }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    email && email.indexOf("@") > -1 && onValidated({ EMAIL: email });
+    // email && email.indexOf("@") > -1 && onValidated({ EMAIL: email });
     resetForm();
   };
 
@@ -24,7 +24,7 @@ function CustomForm({ status, message, onValidated }) {
             placeholder="Type And Hit Enter"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <FaEnvelope className="absolute top-1/2 right-5 -translate-y-1/2 text-xl transition duration-75" />
+          <FaEnvelope className="absolute right-5 top-1/2 -translate-y-1/2 text-xl transition duration-75" />
         </fieldset>
         <button className="d-block  btn btn-primary mt-4 w-full" type="submit">
           Sign In

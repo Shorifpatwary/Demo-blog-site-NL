@@ -14,18 +14,12 @@ class TagController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		$limit = $request->query('limit');
-		$offset = $request->query('offset');
+
 		$orderBy = $request->query('orderBy');
 
 		$query = Tag::query()->with('post');
 
-		if ($limit) {
-			$query->limit($limit);
-		}
-		if ($offset) {
-			$query->offset($offset);
-		}
+
 		if ($orderBy) {
 			$query->orderBy($orderBy);
 		}
