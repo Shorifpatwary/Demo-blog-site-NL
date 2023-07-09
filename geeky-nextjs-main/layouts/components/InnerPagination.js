@@ -6,11 +6,11 @@ const InnerPagination = ({ posts, date }) => {
   const next =
     postIndex == 0
       ? undefined
-      : `${posts[postIndex - 1].id}/${posts[postIndex - 1].slug}`;
+      : `${posts[postIndex - 1]?.id}/${posts[postIndex - 1]?.slug}`;
   const prev =
     postIndex == lastIndex
       ? undefined
-      : `${posts[postIndex + 1].id}/${posts[postIndex + 1].slug}`;
+      : `${posts[postIndex + 1]?.id}/${posts[postIndex + 1]?.slug}`;
   const prevButton = prev && (
     <Link href={prev} className={"btn btn-primary"}>
       Prev

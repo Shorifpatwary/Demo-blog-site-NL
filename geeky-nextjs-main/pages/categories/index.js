@@ -6,6 +6,7 @@ const { blog_folder } = config.settings;
 import apis from "@config/apis.json";
 import { FaFolder } from "react-icons/fa";
 import axios from "axios";
+import ImageFallback from "@layouts/components/ImageFallback";
 
 const Categories = ({ categories }) => {
   return (
@@ -29,10 +30,21 @@ const Categories = ({ categories }) => {
                   as={`/categories/${category.id}/${encodeURIComponent(
                     category.slug
                   )}`}
-                  className="flex w-full items-center justify-center rounded-lg bg-theme-light px-4 py-4 font-bold text-dark transition hover:bg-primary hover:text-white  dark:bg-darkmode-theme-dark dark:text-darkmode-light dark:hover:bg-primary dark:hover:text-white"
+                  className="flex w-full flex-col items-center justify-center rounded-lg bg-theme-light px-4 py-4 font-bold text-dark transition hover:bg-primary hover:text-white  dark:bg-darkmode-theme-dark dark:text-darkmode-light dark:hover:bg-primary dark:hover:text-white"
                 >
-                  <FaFolder className="mr-1.5" />
-                  {humanize(category.name)} ({category.post.length} )
+                  <div className="card">
+                    <ImageFallback
+                      className="rounded"
+                      src={category.image}
+                      alt={category.title}
+                      width={405}
+                      height={208}
+                    />
+                  </div>
+                  <div className="mt-3 flex flex-row content-center">
+                    <FaFolder className="mr-2 mt-1" />
+                    {humanize(category.name)} ({category.post.length} )
+                  </div>
                 </Link>
               </li>
             ))}

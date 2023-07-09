@@ -13,7 +13,7 @@ const Categories = ({ tags }) => {
     <Base title={"tags"}>
       <section className="section pt-0">
         {markdownify(
-          "Categories",
+          "Tags",
           "h1",
           "h2 mb-16 bg-theme-light dark:bg-darkmode-theme-dark py-12 text-center lg:text-[55px]"
         )}
@@ -39,8 +39,10 @@ const Categories = ({ tags }) => {
                       height={208}
                     />
                   </div>
-                  <FaFolder className="mr-1.5 flex flex-row" />
-                  {humanize(tag.name)} ({tag.post.length} )
+                  <div className="mt-3 flex flex-row content-center">
+                    <FaFolder className="mr-2 mt-1" />
+                    {humanize(tag.name)} ({tag.post.length} )
+                  </div>
                 </Link>
               </li>
             ))}

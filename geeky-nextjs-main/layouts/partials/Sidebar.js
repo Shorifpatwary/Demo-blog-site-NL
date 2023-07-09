@@ -116,7 +116,16 @@ const Sidebar = ({ className }) => {
                     fill="#2ba283"
                   />
                 </svg>
-                <Link className="py-2" href={`/categories/${category.name}`}>
+                <Link className="py-2" 
+                // href={`/categories/${category.name}`}
+                href={{
+                  pathname: "/categories/[category]",
+                  query: { category: category.id },
+                }}
+                as={`/categories/${category.id}/${encodeURIComponent(
+                  category.slug
+                )}`}
+                >
                   {category.name.replace("-", " ")}
                   <span className="absolute right-0 top-1/2 -translate-y-1/2 text-[10px] text-gray-500">
                     {category.post.length}

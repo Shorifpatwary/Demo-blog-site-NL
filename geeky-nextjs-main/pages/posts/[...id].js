@@ -7,10 +7,7 @@ import axios from "axios";
 const Article = ({ post, posts }) => {
   // const { frontmatter, content } = post;
   console.log("post data ", post);
-  return (
-    <PostSingle post={post} posts={posts} />
-    // <h1> hello </h1>
-  );
+  return <PostSingle post={post} posts={posts} />;
 };
 
 export default Article;

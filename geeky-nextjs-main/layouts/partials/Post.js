@@ -1,7 +1,7 @@
 import config from "@config/config.json";
 import ImageFallback from "@layouts/components/ImageFallback";
 import cutStringToWords from "@lib/cutStringToWords";
-import dateFormat from "@lib/utils/dateFormat";
+
 import Link from "next/link";
 import { FaRegCalendar, FaUserAlt } from "react-icons/fa";
 
