@@ -22,6 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 // non authenticable::API
 // Post api 
+// Define the specific search route before the resource route
+Route::get('/posts/search', [PostController::class, 'search']);
+
 Route::resource('posts', PostController::class)->except(['index']);
 
 Route::get('posts/{orderBy?}', [PostController::class, 'index']);

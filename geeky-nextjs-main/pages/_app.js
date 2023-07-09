@@ -37,7 +37,7 @@ const App = ({ Component, pageProps }) => {
   }, []);
 
   return (
-    <JsonContext>
+    <>
       <Head>
         {/* google font css */}
         <link
@@ -59,7 +59,7 @@ const App = ({ Component, pageProps }) => {
       <ThemeProvider attribute="class" defaultTheme={default_theme}>
         <Component {...pageProps} />
       </ThemeProvider>
-    </JsonContext>
+    </>
   );
 };
 

@@ -134,7 +134,7 @@ class PostResource extends Resource
 						);
 					}
 				),
-				TextColumn::make('title')->sortable(),
+				TextColumn::make('title')->sortable()->searchable(),
 				// TextColumn::make('status')->sortable()->searchable(),
 				BadgeColumn::make('status')
 					->enum([
@@ -164,6 +164,8 @@ class PostResource extends Resource
 						'published' => 'Published',
 					]),
 				SelectFilter::make('user_id')->searchable()->relationship('user', 'name'),
+				SelectFilter::make('category_id')->searchable()->relationship('category', 'name'),
+				SelectFilter::make('tag_id')->searchable()->relationship('tag', 'name'),
 				Filter::make('created_at')
 					->form([
 						Forms\Components\DatePicker::make('created_from'),

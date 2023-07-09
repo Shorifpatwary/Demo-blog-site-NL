@@ -99,4 +99,40 @@ class PostController extends Controller
 	{
 		//
 	}
+
+	/**
+	 * Search for posts based on the provided query.
+	 */
+	public function search(Request $request)
+	{
+		try {
+			$search = $request->query('search'); // Retrieve the search query
+
+			$query = Post::query()->with('user')->with('category')->with('tag')->with('comment');
+
+			// Apply additional conditions based on the query parameters
+			if ($search) {
+				$query->where('title', 'like', "%$search%");
+
+				// ->orWhere('content', 'like', "%$search%")
+			}
+
+			// Retrieve the posts without pagination
+			$posts = $query->get();
+
+			// Log something
+			Log::info("posts api search :: success");
+
+			// return response
+			return PostResource::collection($posts);
+		} catch (\Exception $e) {
+			$statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+
+			// Log the error if needed
+			Log::info('posts api search :: error');
+			Log::error($e);
+
+			return response()->json(['error' => $e], $statusCode);
+		}
+	}
 }

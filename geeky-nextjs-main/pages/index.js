@@ -229,33 +229,3 @@ export const getServerSideProps = async () => {
     },
   };
 };
-
-// for homepage static data
-// export const getStaticProps = async () => {
-//   const homepage = await getListPage("content/_index.md");
-//   const { frontmatter } = homepage;
-//   const { banner, featured_posts, recent_posts, promotion } = frontmatter;
-//   const posts = getSinglePage(`content/${blog_folder}`);
-//   const categories = getTaxonomy(`content/${blog_folder}`, "categories");
-
-//   const categoriesWithPostsCount = categories.map((category) => {
-//     const filteredPosts = posts.filter((post) =>
-//       post.frontmatter.categories.includes(category)
-//     );
-//     return {
-//       name: category,
-//       posts: filteredPosts.length,
-//     };
-//   });
-
-//   return {
-//     props: {
-//       banner,
-//       posts,
-//       featured_posts,
-//       recent_posts,
-//       promotion,
-//       categories: categoriesWithPostsCount,
-//     },
-//   };
-// };
