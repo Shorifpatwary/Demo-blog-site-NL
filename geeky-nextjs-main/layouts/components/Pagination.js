@@ -25,7 +25,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
               href={
                 indexPageLink
                   ? `${section ? "/" + section : "/"}`
-                  : `${section ? "/" + section : ""}/page/${currentPage - 1}`
+                  : `${section ? "/" + section : ""}?page=${currentPage - 1}`
               }
               className="flex items-center rounded-full px-2 py-1 text-3xl font-bold leading-none text-dark dark:text-darkmode-light"
             >
@@ -58,7 +58,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
                   href={
                     i === 0
                       ? `${section ? "/" + section : "/"}`
-                      : `${section ? "/" + section : ""}/page/${pagination}`
+                      : `${section ? "/" + section : ""}?page=${pagination}`
                   }
                   passHref
                   aria-current="page"
@@ -73,7 +73,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
           {/* next page */}
           {hasNextPage ? (
             <Link
-              href={`${section ? "/" + section : ""}/page/${currentPage + 1}`}
+              href={`${section ? "/" + section : ""}?page=${currentPage + 1}`}
               className="ml-4 flex items-center rounded-full px-2 py-1 text-3xl font-bold leading-none text-dark dark:text-darkmode-light"
             >
               <>

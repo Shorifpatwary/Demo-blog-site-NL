@@ -186,12 +186,7 @@ const Home = ({ recentPosts, featuredPosts, categories }) => {
               </div>
             </div>
             {/* sidebar */}
-            <Sidebar
-              className={"lg:mt-[9.5rem]"}
-              recentPosts={recentPostsData}
-              featuredPosts={featuredPostsData}
-              categories={categories}
-            />
+            <Sidebar className={"lg:mt-[9.5rem]"} />
           </div>
         </div>
       </section>
@@ -220,7 +215,7 @@ export const getServerSideProps = async () => {
   // category
   try {
     // ?orderBy=views
-    const response = await axios(`${apis.posts}`);
+    const response = await axios(`${apis.categories}`);
     var categories = await response.data;
   } catch (error) {
     console.error(error);
@@ -230,9 +225,7 @@ export const getServerSideProps = async () => {
     props: {
       recentPosts,
       featuredPosts,
-      categories,
-      // promotion,
-      // categories: categoriesWithPostsCount,
+      categories: categories.data,
     },
   };
 };

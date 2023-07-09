@@ -50,7 +50,7 @@ class CategoryController extends Controller
 	 */
 	public function show(Category $category)
 	{
-		$category->load('post');
+		$category->load('post', 'post.category');
 		return new CategoryResource($category);
 	}
 

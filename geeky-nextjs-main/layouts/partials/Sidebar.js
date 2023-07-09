@@ -9,14 +9,62 @@ import { sortByDate } from "@lib/utils/sortFunctions";
 import cutStringToWords from "@lib/cutStringToWords";
 import { markdownify } from "@lib/utils/textConverter";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegCalendar } from "react-icons/fa";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
+import axios from "axios";
+import apis from "@config/apis.json";
 const { blog_folder } = config.settings;
 const { about, featured_posts, newsletter } = config.widgets;
 
-const Sidebar = ({ recentPosts, featuredPosts, categories, className }) => {
+const Sidebar = ({ className }) => {
   const [showRecent, setShowRecent] = useState(true);
+
+  const [loading, setLoading] = useState(true);
+  const [recentPosts, setRecentPosts] = useState({});
+  const [featuredPosts, setFeaturedPosts] = useState({});
+  const [categories, setCategories] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const recentPostsResponse = await axios(
+          `${apis.posts}?orderBy=published_at`
+        );
+        setRecentPosts(recentPostsResponse.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+
+      try {
+        const featuredPostsResponse = await axios(
+          `${apis.posts}?orderBy=views`
+        );
+        setFeaturedPosts(featuredPostsResponse.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+
+      try {
+        const categoriesResponse = await axios(`${apis.categories}`);
+        setCategories(categoriesResponse.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+      setLoading(false); // Data fetching completed
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <h2 className="text-center">Loading...</h2>;
+  } else {
+    console.log("posts", apis.posts, recentPosts);
+    console.log("featuredPosts", apis.posts, featuredPosts);
+    console.log("categories", apis.categories, categories);
+  }
+
   return (
     <aside className={`${className} px-0 lg:col-4 lg:px-6`}>
       {about.enable && (
@@ -37,7 +85,7 @@ const Sidebar = ({ recentPosts, featuredPosts, categories, className }) => {
       )}
 
       {/* categories widget */}
-      {categories.enable && (
+      {config.widgets.categories.enable && (
         <div className="mt-6 rounded border border-border p-6 dark:border-darkmode-border">
           <h4 className="section-title mb-12 text-center">
             {featured_posts.title}
@@ -49,7 +97,7 @@ const Sidebar = ({ recentPosts, featuredPosts, categories, className }) => {
                   i !== categories.length - 1 &&
                   "border-b border-border  dark:border-darkmode-border"
                 }`}
-                key={i}
+                key={category.id}
               >
                 <svg
                   className="absolute left-0 top-2.5"
@@ -71,7 +119,7 @@ const Sidebar = ({ recentPosts, featuredPosts, categories, className }) => {
                 <Link className="py-2" href={`/categories/${category.name}`}>
                   {category.name.replace("-", " ")}
                   <span className="absolute right-0 top-1/2 -translate-y-1/2 text-[10px] text-gray-500">
-                    {category.posts}
+                    {category.post.length}
                   </span>
                 </Link>
               </li>
@@ -189,9 +237,9 @@ const Sidebar = ({ recentPosts, featuredPosts, categories, className }) => {
               )}
           /> */}
           <CustomForm
-            // onValidated={(formData) => subscribe(formData)}
-            // status={status}
-            // message={message}
+          // onValidated={(formData) => subscribe(formData)}
+          // status={status}
+          // message={message}
           />
           <p className="text-xs">
             By Singing Up, You Agree To

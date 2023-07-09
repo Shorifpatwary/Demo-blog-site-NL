@@ -6,7 +6,6 @@ import Link from "next/link";
 import { FaRegCalendar, FaUserAlt } from "react-icons/fa";
 
 const Post = ({ post }) => {
-  const { summary_length, blog_folder } = config.settings;
   const { meta_author } = config.metadata;
   const author = post.user.name ? post.user.name : meta_author;
   return (
@@ -35,7 +34,15 @@ const Post = ({ post }) => {
         </ul>
       </div>
       <h3 className="h5 mb-2 mt-4">
-        <Link href={post.slug} className="block hover:text-primary">
+        <Link
+          // href={`/posts/[id]`}
+          href={{
+            pathname: "/posts/[id]",
+            query: { id: post.id },
+          }}
+          as={`/posts/${post.id}/${encodeURIComponent(post.title)}`}
+          className="block hover:text-primary"
+        >
           {post.title}
         </Link>
       </h3>
@@ -60,7 +67,14 @@ const Post = ({ post }) => {
         {cutStringToWords(post.content, 15)}
         <strong className=" text-primary"> . . . </strong>
       </p>
-      <Link className="btn btn-outline-primary mt-4" href={post.slug}>
+      <Link
+        className="btn btn-outline-primary mt-4"
+        href={{
+          pathname: "/posts/[id]",
+          query: { id: post.id },
+        }}
+        as={`/posts/${post.id}/${encodeURIComponent(post.title)}`}
+      >
         Read More
       </Link>
     </div>
