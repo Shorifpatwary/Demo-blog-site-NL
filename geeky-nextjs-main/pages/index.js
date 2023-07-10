@@ -120,7 +120,14 @@ const Home = ({ recentPosts, featuredPosts, categories }) => {
                               <div>
                                 <h3 className="h5 mb-2">
                                   <Link
-                                    href={post.slug}
+                                    // href={post.slug}
+                                    href={{
+                                      pathname: "/posts/[id]",
+                                      query: { id: post.id },
+                                    }}
+                                    as={`/posts/${post.id}/${encodeURIComponent(
+                                      post.title
+                                    )}`}
                                     className="block hover:text-primary"
                                   >
                                     {/* {post.title.slice(0, 50)} */}

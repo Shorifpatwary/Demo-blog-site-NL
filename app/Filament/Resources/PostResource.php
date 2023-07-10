@@ -53,7 +53,7 @@ class PostResource extends Resource
 								$set('slug', Str::slug($state));
 							}),
 						// TextInput::make('description')->minLength(15),
-						MarkdownEditor::make('description')
+						MarkdownEditor::make('content')
 							->toolbarButtons([
 								'attachFiles',
 								'bold',

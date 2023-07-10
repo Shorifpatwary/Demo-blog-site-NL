@@ -3,34 +3,12 @@ import apis from "@config/apis.json";
 import { slugify } from "@lib/utils/textConverter";
 import Post from "@partials/Post";
 import axios from "axios";
-import { useSearchContext } from "context/state";
 import { useRouter } from "next/router";
 
 const SearchPage = ({ searchPosts = [], searchKeyWord }) => {
-  // const router = useRouter();
-  // const { query } = router;
-  // const keyword = slugify(query.key);
   console.log("searchKeyWord", searchKeyWord);
   console.log("searchPosts", searchPosts);
 
-  // const { posts } = useSearchContext();
-
-  // const searchPosts = posts.filter((product) => {
-  //   if (product.frontmatter.draft) {
-  //     return !product.frontmatter.draft;
-  //   }
-  //   if (slugify(product.frontmatter.title).includes(keyword)) {
-  //     return product;
-  //   } else if (
-  //     product.frontmatter.categories.find((category) =>
-  //       slugify(category).includes(keyword)
-  //     )
-  //   ) {
-  //     return product;
-  //   } else if (slugify(product.content).includes(keyword)) {
-  //     return product;
-  //   }
-  // });
 
   return (
     <Base title={`Search results for ${searchKeyWord}`}>
